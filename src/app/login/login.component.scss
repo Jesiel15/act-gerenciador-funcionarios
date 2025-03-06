@@ -1,0 +1,64 @@
+.content-card {
+  padding-top: 20vh;
+  background-color: #363636;
+  height: 100%;
+}
+
+mat-card {
+  width: 100%;
+  max-width: 50vh;
+  margin: 0 auto;
+}
+
+mat-card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 2vh;
+}
+
+.card-title {
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+  color: #3f51b5;
+  margin-top: 10vh;
+  margin-bottom: 1vh;
+
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 2px;
+}
+
+.gradient-line {
+  width: 60%;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #3f51b5,
+    #2196f3,
+    transparent
+  );
+  margin: 10px auto;
+}
+
+.button-login {
+  background-color: #3f51b5;
+  font-size: 24px;
+  padding: 24px 48px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.button-login:hover {
+  background-color: #586cda;
+  transform: translateY(-2px);
+}

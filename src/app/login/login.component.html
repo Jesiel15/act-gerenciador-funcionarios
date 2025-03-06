@@ -1,1 +1,37 @@
-<p>login works!</p>
+<div class="content-card">
+  <mat-card>
+    <mat-card-title class="card-title">LOGIN</mat-card-title>
+    <div class="gradient-line"></div>
+    <mat-card-content>
+      <mat-form-field>
+        <mat-label>Seu e-mail</mat-label>
+        <input
+          matInput
+          placeholder="example@email.com"
+          [formControl]="email"
+          required
+        />
+        <mat-error *ngIf="email.invalid">{{ getErrorMessage() }}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Sua senha</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon class="custom-icon">{{
+            hide ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" class="button-login">
+        Login
+      </button>
+    </mat-card-content>
+  </mat-card>
+</div>
