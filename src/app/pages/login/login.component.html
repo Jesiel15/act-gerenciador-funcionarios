@@ -1,0 +1,59 @@
+<div class="content-card">
+  <mat-card>
+    <mat-card-title class="card-title">LOGIN</mat-card-title>
+    <div class="gradient-line"></div>
+    <mat-card-content>
+      <form [formGroup]="formLogin" (ngSubmit)="login()">
+        <mat-form-field>
+          <mat-label>Seu e-mail</mat-label>
+          <input
+            matInput
+            placeholder="example@email.com"
+            formControlName="email"
+            required
+          />
+          <mat-error
+            *ngIf="
+              formLogin.get('email')?.invalid && formLogin.get('email')?.touched
+            "
+          >
+            {{ getErrorMessage() }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Sua senha</mat-label>
+          <input
+            matInput
+            [type]="hide ? 'password' : 'text'"
+            formControlName="password"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon class="custom-icon">{{
+              hide ? "visibility_off" : "visibility"
+            }}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <div class="button-container">
+          <button
+            mat-raised-button
+            color="primary"
+            class="button-login"
+            type="submit"
+            [disabled]="formLogin.invalid"
+          >
+            Login
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

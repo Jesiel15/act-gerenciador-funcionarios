@@ -1,0 +1,5 @@
+export enum StorageEnum {
+  AUTH_TOKEN_ACT = 'AUTH_TOKEN_ACT',
+  USER_PROFILE = 'USER_PROFILE',
+  LOGGED = 'LOGGED',
+}
