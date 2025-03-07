@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { User } from '../../models/user.model';
 import { ProfileEnum } from '../../enums/profile.enum';
-import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-modal-adicionar-editar-funcionario',
@@ -22,6 +21,8 @@ export class ModalAdicionarEditarFuncionarioComponent {
     @Inject(MAT_DIALOG_DATA)
     public data: { funcionario: User; managers: string[] }
   ) {
+    const passwordValidators = data?.funcionario ? [] : [Validators.required];
+
     this.managers = data.managers;
     this.funcionarioForm = this.fb.group({
       id: [data?.funcionario.id || ''],
@@ -37,7 +38,7 @@ export class ModalAdicionarEditarFuncionarioComponent {
         data?.funcionario.date_of_birth || '',
         Validators.required,
       ],
-      password: [data?.funcionario.password || '', Validators.required],
+      password: [data?.funcionario.password || '', passwordValidators],
       profile: [
         {
           value: this.data?.funcionario.profile || ProfileEnum.EMPLOYEE,

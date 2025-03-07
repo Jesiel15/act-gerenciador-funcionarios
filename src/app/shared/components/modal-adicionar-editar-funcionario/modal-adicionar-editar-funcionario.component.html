@@ -1,11 +1,13 @@
-<h2 mat-dialog-title>{{ data ? "Editar" : "Adicionar" }} Funcionário</h2>
+<h2 mat-dialog-title>
+  {{ data.funcionario ? "Editar" : "Adicionar" }} Funcionário
+</h2>
 <div mat-dialog-content fxLayout="row wrap" fxLayoutGap="16px">
   <form [formGroup]="funcionarioForm">
-    <div class="full-width" fxFlex="100%">
-      <mat-form-field fxFlex="100%">
+    <div class="full-width" fxFlex="100%"> 
+      <mat-form-field>
         <mat-label>Nome</mat-label>
         <input matInput formControlName="name" />
-      </mat-form-field>
+      </mat-form-field> 
     </div>
 
     <div class="full-width">
@@ -47,7 +49,7 @@
       </mat-form-field>
     </div>
 
-    <div class="full-width">
+    <div *ngIf="!data.funcionario" class="full-width">
       <mat-form-field>
         <mat-label>Senha</mat-label>
         <input

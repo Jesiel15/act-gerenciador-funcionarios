@@ -13,6 +13,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenService } from './shared/utils/token.service';
 import { FuncionariosModule } from './pages/funcionarios/funcionarios.module';
 import { ModalAdicionarEditarFuncionarioModule } from './shared/components/modal-adicionar-editar-funcionario/modal-adicionar-editar-funcionario.module';
+import { ModalAlterarSenhaModule } from './shared/components/modal-alterar-senha/modal-alterar-senha.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +29,7 @@ import { ModalAdicionarEditarFuncionarioModule } from './shared/components/modal
 
     // Components
     ModalAdicionarEditarFuncionarioModule,
+    ModalAlterarSenhaModule,
 
     // Modules
     MatCardModule,
