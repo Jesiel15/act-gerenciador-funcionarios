@@ -1,39 +1,33 @@
 .container {
-  // Define o layout responsivo com espaçamento e largura máxima
   width: 90%;
-  padding: 10vh; // Adiciona 20px de espaçamento à direita (padding: top, right, bottom, left)
+  padding: 10vh;
 
-  // Estilo geral para os mat-form-fields
   mat-form-field {
     width: 100%;
-    max-width: 300px; // Define a largura máxima dos campos de entrada
+    max-width: 300px;
     margin-top: 10px;
   }
 
-  // Se você quiser que os inputs dentro do mat-form-field se ajustem de forma proporcional
   mat-form-field input {
-    width: 100%; // Garante que o input preencha todo o espaço do mat-form-field
+    width: 100%;
   }
 
-  // Estilo para o botão de adicionar funcionário
   button {
-    margin-bottom: 20px; // Espaço abaixo do botão
+    margin-bottom: 20px;
   }
 
-  // Estilo geral para a tabela
   table {
     width: 100%;
-    table-layout: fixed; // Evita que a tabela estique demais
-    overflow: hidden; // Garante que não ultrapasse a largura
+    table-layout: fixed;
+    overflow: hidden;
   }
 
-  // Estilos para as colunas da tabela
   th.mat-header-cell,
   td.mat-cell {
     padding: 8px;
     text-align: left;
     overflow: hidden;
-    text-overflow: ellipsis; // Adiciona reticências caso o conteúdo ultrapasse
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
 }

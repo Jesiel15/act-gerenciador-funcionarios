@@ -12,21 +12,29 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenService } from './shared/utils/token.service';
 import { FuncionariosModule } from './pages/funcionarios/funcionarios.module';
+import { ModalAdicionarEditarFuncionarioModule } from './shared/components/modal-adicionar-editar-funcionario/modal-adicionar-editar-funcionario.module';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+
+    // Pages
     LoginModule,
     FuncionariosModule,
+
+    // Components
+    ModalAdicionarEditarFuncionarioModule,
+
+    // Modules
     MatCardModule,
     MatCardModule,
     MatSelectModule,
     MatInputModule,
     MatFormFieldModule,
-    BrowserAnimationsModule,
   ],
   providers: [
     {

@@ -3,6 +3,8 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { User } from 'src/app/shared/models/user.model';
 import { ProfileEnum } from 'src/app/shared/enums/profile.enum';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalAdicionarEditarFuncionarioComponent } from 'src/app/shared/components/modal-adicionar-editar-funcionario/modal-adicionar-editar-funcionario.component';
 
 @Component({
   selector: 'app-funcionarios',
@@ -23,7 +25,8 @@ export class FuncionariosComponent implements OnInit {
   ];
   constructor(
     private userService: UserService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -36,19 +39,18 @@ export class FuncionariosComponent implements OnInit {
     });
   }
 
-  adicionarFuncionario(): void {
-    const novoFuncionario: User = {
-      id: '',
-      name: '',
-      email: '',
-      document: '',
-      phone: '',
-      manager_name: '',
-      password: '',
-      date_of_birth: new Date(),
-      profile: ProfileEnum.EMPLOYEE,
-    };
-    this.funcionarios = [...this.funcionarios, novoFuncionario];
+  adicionarFuncionario() {
+    const dialogRef = this.dialog.open(ModalAdicionarEditarFuncionarioComponent, {
+      width: '50%',
+      data: '',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log(result);
+        this.funcionarios.push(result);
+      }
+    });
   }
 
   private validarFuncionario(funcionario: User): boolean {
@@ -96,6 +98,18 @@ export class FuncionariosComponent implements OnInit {
 
   editarFuncionario(funcionario: User): void {
     console.log(funcionario);
+
+    const dialogRef = this.dialog.open(ModalAdicionarEditarFuncionarioComponent, {
+      width: '50%',
+      data: funcionario,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log(result);
+        this.funcionarios.push(result);
+      }
+    });
   }
 
   removerFuncionario(id: string): void {
