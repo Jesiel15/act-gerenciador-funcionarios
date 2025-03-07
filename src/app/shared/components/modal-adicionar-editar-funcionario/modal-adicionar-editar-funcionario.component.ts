@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { User } from '../../models/user.model';
 import { ProfileEnum } from '../../enums/profile.enum';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-modal-adicionar-editar-funcionario',
@@ -12,24 +13,36 @@ import { ProfileEnum } from '../../enums/profile.enum';
 export class ModalAdicionarEditarFuncionarioComponent {
   funcionarioForm: FormGroup;
   hidePassword = true;
+  funcionarios: User[] = [];
+  managers: string[] = [];
 
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<ModalAdicionarEditarFuncionarioComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: User
+    @Inject(MAT_DIALOG_DATA)
+    public data: { funcionario: User; managers: string[] }
   ) {
-    console.log('data', data);
+    this.managers = data.managers;
     this.funcionarioForm = this.fb.group({
-      id: [data?.id || ''],
-      name: [data?.name || '', Validators.required],
-      email: [data?.email || '', [Validators.required, Validators.email]],
-      document: [data?.document || '', Validators.required],
-      phone: [data?.phone || '', Validators.required],
-      manager_name: [data?.manager_name || ''],
-      date_of_birth: [data?.date_of_birth || '', Validators.required],
-      password: [data?.password || '', Validators.required],
+      id: [data?.funcionario.id || ''],
+      name: [data?.funcionario.name || '', Validators.required],
+      email: [
+        data?.funcionario.email || '',
+        [Validators.required, Validators.email],
+      ],
+      document: [data?.funcionario.document || '', Validators.required],
+      phone: [data?.funcionario.phone || '', Validators.required],
+      manager_name: [data?.funcionario.manager_name || ''],
+      date_of_birth: [
+        data?.funcionario.date_of_birth || '',
+        Validators.required,
+      ],
+      password: [data?.funcionario.password || '', Validators.required],
       profile: [
-        { value: this.data?.profile || ProfileEnum.EMPLOYEE, disabled: true },
+        {
+          value: this.data?.funcionario.profile || ProfileEnum.EMPLOYEE,
+          disabled: true,
+        },
       ],
     });
   }

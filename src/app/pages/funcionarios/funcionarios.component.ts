@@ -13,6 +13,7 @@ import { ModalAdicionarEditarFuncionarioComponent } from 'src/app/shared/compone
 })
 export class FuncionariosComponent implements OnInit {
   funcionarios: User[] = [];
+  managers: string[] = [];
   displayedColumns: string[] = [
     'name',
     'email',
@@ -37,6 +38,7 @@ export class FuncionariosComponent implements OnInit {
   getFuncionarios(): void {
     this.userService.getUsers().subscribe((response) => {
       this.funcionarios = response.response;
+      this.managers = this.funcionarios.map((manager) => manager.name);
     });
   }
 
@@ -45,7 +47,7 @@ export class FuncionariosComponent implements OnInit {
       ModalAdicionarEditarFuncionarioComponent,
       {
         width: '50%',
-        data: '',
+        data: { funcionario: '', managers: this.managers },
       }
     );
 
@@ -96,7 +98,7 @@ export class FuncionariosComponent implements OnInit {
       ModalAdicionarEditarFuncionarioComponent,
       {
         width: '50%',
-        data: funcionario,
+        data: { funcionario, managers: this.managers },
       }
     );
 

@@ -32,7 +32,11 @@
     <div class="full-width">
       <mat-form-field>
         <mat-label>Gestor</mat-label>
-        <input matInput formControlName="manager_name" />
+        <mat-select formControlName="manager_name">
+          <mat-option *ngFor="let manager of managers" [value]="manager">
+            {{ manager }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
 
