@@ -23,6 +23,7 @@ export class FuncionariosComponent implements OnInit {
     'profile',
     'actions',
   ];
+
   constructor(
     private userService: UserService,
     private snackBar: MatSnackBar,
@@ -40,15 +41,18 @@ export class FuncionariosComponent implements OnInit {
   }
 
   adicionarFuncionario() {
-    const dialogRef = this.dialog.open(ModalAdicionarEditarFuncionarioComponent, {
-      width: '50%',
-      data: '',
-    });
+    const dialogRef = this.dialog.open(
+      ModalAdicionarEditarFuncionarioComponent,
+      {
+        width: '50%',
+        data: '',
+      }
+    );
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log(result);
         this.funcionarios.push(result);
+        this.salvarFuncionario(result);
       }
     });
   }
@@ -59,25 +63,12 @@ export class FuncionariosComponent implements OnInit {
       funcionario.email &&
       funcionario.document &&
       funcionario.phone &&
-      funcionario.manager_name &&
-      funcionario.date_of_birth &&
-      funcionario.profile &&
-      funcionario.password
+      funcionario.date_of_birth
     );
-  }
-
-  private mostrarAlerta(mensagem: string): void {
-    this.snackBar.open(mensagem, 'Fechar', {
-      duration: 6000,
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
-      panelClass: ['snackbar-alert'],
-    });
   }
 
   salvarFuncionario(funcionario: User): void {
     if (!this.validarFuncionario(funcionario)) {
-      console.warn('Preencha todos os campos obrigatórios antes de salvar.');
       this.mostrarAlerta(
         'Preencha todos os campos obrigatórios antes de salvar!'
       );
@@ -85,29 +76,34 @@ export class FuncionariosComponent implements OnInit {
     }
 
     if (funcionario.id) {
-      this.userService.updateUser(funcionario).subscribe((response) => {});
+      this.userService.updateUser(funcionario).subscribe((response) => {
+        this.mostrarAlerta('Funcionário atualizado com sucesso!');
+        this.getFuncionarios();
+      });
     } else {
       this.userService.createUser(funcionario).subscribe((response) => {
         if (response.response.id) {
           funcionario.id = response.response.id;
         }
         this.getFuncionarios();
+        this.mostrarAlerta('Funcionário criado com sucesso!');
       });
     }
   }
 
   editarFuncionario(funcionario: User): void {
-    console.log(funcionario);
-
-    const dialogRef = this.dialog.open(ModalAdicionarEditarFuncionarioComponent, {
-      width: '50%',
-      data: funcionario,
-    });
+    const dialogRef = this.dialog.open(
+      ModalAdicionarEditarFuncionarioComponent,
+      {
+        width: '50%',
+        data: funcionario,
+      }
+    );
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log(result);
         this.funcionarios.push(result);
+        this.salvarFuncionario(result);
       }
     });
   }
@@ -115,6 +111,16 @@ export class FuncionariosComponent implements OnInit {
   removerFuncionario(id: string): void {
     this.userService.deleteUser(id).subscribe(() => {
       this.funcionarios = this.funcionarios.filter((f) => f.id !== id);
+      this.mostrarAlerta('Funcionário excluído com sucesso!');
+    });
+  }
+
+  mostrarAlerta(mensagem: string): void {
+    this.snackBar.open(mensagem, 'Fechar', {
+      duration: 6000,
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+      panelClass: ['snackbar-alert'],
     });
   }
 }

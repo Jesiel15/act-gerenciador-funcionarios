@@ -11,6 +11,7 @@ import { ProfileEnum } from '../../enums/profile.enum';
 })
 export class ModalAdicionarEditarFuncionarioComponent {
   funcionarioForm: FormGroup;
+  hidePassword = true;
 
   constructor(
     private fb: FormBuilder,
@@ -19,12 +20,14 @@ export class ModalAdicionarEditarFuncionarioComponent {
   ) {
     console.log('data', data);
     this.funcionarioForm = this.fb.group({
+      id: [data?.id || ''],
       name: [data?.name || '', Validators.required],
       email: [data?.email || '', [Validators.required, Validators.email]],
       document: [data?.document || '', Validators.required],
       phone: [data?.phone || '', Validators.required],
       manager_name: [data?.manager_name || ''],
       date_of_birth: [data?.date_of_birth || '', Validators.required],
+      password: [data?.password || '', Validators.required],
       profile: [
         { value: this.data?.profile || ProfileEnum.EMPLOYEE, disabled: true },
       ],
@@ -33,6 +36,7 @@ export class ModalAdicionarEditarFuncionarioComponent {
 
   salvar() {
     if (this.funcionarioForm.valid) {
+      this.funcionarioForm.get('profile')?.enable();
       this.dialogRef.close(this.funcionarioForm.value);
     }
   }

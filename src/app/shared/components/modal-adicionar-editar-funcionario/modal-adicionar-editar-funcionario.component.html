@@ -45,6 +45,28 @@
 
     <div class="full-width">
       <mat-form-field>
+        <mat-label>Senha</mat-label>
+        <input
+          matInput
+          [type]="hidePassword ? 'password' : 'text'"
+          formControlName="password"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hidePassword = !hidePassword"
+          [attr.aria-label]="'Esconder password'"
+          [attr.aria-pressed]="hidePassword"
+        >
+          <mat-icon>{{
+            hidePassword ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+
+    <div class="full-width">
+      <mat-form-field>
         <mat-label>Perfil</mat-label>
         <input matInput formControlName="profile" />
       </mat-form-field>
