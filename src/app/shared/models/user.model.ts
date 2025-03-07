@@ -1,7 +1,7 @@
 import { ProfileEnum } from '../enums/profile.enum';
 
 export class User {
-  id?: string;
+  id!: string;
   name!: string;
   email!: string;
   document!: string;
