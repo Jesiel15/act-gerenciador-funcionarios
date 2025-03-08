@@ -12,6 +12,7 @@ import { ProfileEnum } from '../../enums/profile.enum';
 export class ModalAdicionarEditarFuncionarioComponent {
   funcionarioForm: FormGroup;
   hidePassword = true;
+  hideConfirmPassword = true;
   funcionarios: User[] = [];
   managers: string[] = [];
 
@@ -24,28 +25,38 @@ export class ModalAdicionarEditarFuncionarioComponent {
     const passwordValidators = data?.funcionario ? [] : [Validators.required];
 
     this.managers = data.managers;
-    this.funcionarioForm = this.fb.group({
-      id: [data?.funcionario.id || ''],
-      name: [data?.funcionario.name || '', Validators.required],
-      email: [
-        data?.funcionario.email || '',
-        [Validators.required, Validators.email],
-      ],
-      document: [data?.funcionario.document || '', Validators.required],
-      phone: [data?.funcionario.phone || '', Validators.required],
-      manager_name: [data?.funcionario.manager_name || ''],
-      date_of_birth: [
-        data?.funcionario.date_of_birth || '',
-        Validators.required,
-      ],
-      password: [data?.funcionario.password || '', passwordValidators],
-      profile: [
-        {
-          value: this.data?.funcionario.profile || ProfileEnum.EMPLOYEE,
-          disabled: true,
-        },
-      ],
-    });
+    this.funcionarioForm = this.fb.group(
+      {
+        id: [data?.funcionario.id || ''],
+        name: [data?.funcionario.name || '', Validators.required],
+        email: [
+          data?.funcionario.email || '',
+          [Validators.required, Validators.email],
+        ],
+        document: [data?.funcionario.document || '', Validators.required],
+        phone: [data?.funcionario.phone || '', Validators.required],
+        manager_name: [data?.funcionario.manager_name || ''],
+        date_of_birth: [
+          data?.funcionario.date_of_birth || '',
+          Validators.required,
+        ],
+        password: [data?.funcionario.password || '', passwordValidators],
+        confirmPassword: [data?.funcionario.password || '', passwordValidators],
+        profile: [
+          {
+            value: this.data?.funcionario.profile || ProfileEnum.EMPLOYEE,
+            disabled: true,
+          },
+        ],
+      },
+      { validators: this.senhasIguais }
+    );
+  }
+
+  senhasIguais(form: FormGroup) {
+    const senha = form.get('password')?.value;
+    const confirmarSenha = form.get('confirmPassword')?.value;
+    return senha === confirmarSenha ? null : { senhaInvalida: true };
   }
 
   salvar() {

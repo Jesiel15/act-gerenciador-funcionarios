@@ -1,14 +1,24 @@
 .full-width {
-  width: 98%;
+  width: 96%;
   padding-left: 10px;
   padding-right: 20px;
   margin-left: 0px;
 }
 
-mat-form-field {
+.input-align{
+  display: flex;
+  flex-direction: row;
+}
+
+.input-align-full{
   display: flex;
 }
 
+mat-form-field {
+  padding-left: 20px;
+  width: 100%;
+}
+
 h2 {
-  margin-left: 10px;
+  margin-left: 24px;
 }
