@@ -133,7 +133,9 @@ export class FuncionariosComponent implements OnInit {
   private getFuncionariosFinalizado() {
     return this.userService.getUsers().pipe(
       tap((response) => {
-        this.funcionarios = response.response;
+        this.funcionarios = response.response.filter(
+          (funcionario) => funcionario.profile !== ProfileEnum.MANAGER
+        );
         this.managers = this.funcionarios.map((manager) => manager.name);
       })
     );
