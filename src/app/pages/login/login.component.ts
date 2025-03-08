@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { LoginRequest } from 'src/app/shared/models/login-request.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { StorageService } from 'src/app/shared/utils/storage.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   hide = true;
 
   formLogin = new UntypedFormGroup({
@@ -16,7 +17,14 @@ export class LoginComponent {
     password: new FormControl('', [Validators.required]),
   });
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private storageService: StorageService
+  ) {}
+
+  ngOnInit(): void {
+    this.storageService.clearDataLogin();
+  }
 
   getErrorMessage() {
     if (this.formLogin.get('email')?.hasError('required')) {
