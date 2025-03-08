@@ -43,8 +43,12 @@ export class FuncionariosComponent implements OnInit {
 
     this.userService.getUsers().subscribe(
       (response) => {
-        this.funcionarios = response.response;
-        this.managers = this.funcionarios.map((manager) => manager.name);
+        this.funcionarios = response.response.filter(
+          (funcionario) => funcionario.profile !== ProfileEnum.MANAGER
+        );
+        this.managers = response.response
+          .filter((manager) => manager.profile === ProfileEnum.MANAGER)
+          .map((manager) => manager.name);
         this.loading = false;
       },
       (error) => {
