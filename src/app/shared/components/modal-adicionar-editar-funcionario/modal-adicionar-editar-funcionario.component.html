@@ -45,6 +45,13 @@
       </div>
 
       <div class="input-align">
+        <mat-form-field>
+          <mat-label>Perfil</mat-label>
+          <input matInput formControlName="profile" />
+        </mat-form-field>
+      </div>
+
+      <div class="input-align">
         <mat-form-field *ngIf="!data.funcionario">
           <mat-label>Senha</mat-label>
           <input
@@ -63,6 +70,17 @@
               hidePassword ? "visibility_off" : "visibility"
             }}</mat-icon>
           </button>
+          <mat-error
+            *ngIf="funcionarioForm.get('password')?.hasError('required')"
+          >
+            A senha é obrigatória.
+          </mat-error>
+          <mat-error
+            *ngIf="funcionarioForm.get('password')?.hasError('pattern')"
+          >
+            A senha deve conter pelo menos 6 caracteres, incluindo letras,
+            números e símbolos.
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field *ngIf="!data.funcionario">
@@ -83,11 +101,13 @@
               hideConfirmPassword ? "visibility_off" : "visibility"
             }}</mat-icon>
           </button>
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Perfil</mat-label>
-          <input matInput formControlName="profile" />
+          <mat-error
+            *ngIf="
+              funcionarioForm.get('confirmPassword')?.hasError('senhaInvalida')
+            "
+          >
+            As senhas não coincidem.
+          </mat-error>
         </mat-form-field>
       </div>
     </div>

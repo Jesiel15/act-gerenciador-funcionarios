@@ -40,8 +40,14 @@ export class ModalAdicionarEditarFuncionarioComponent {
           data?.funcionario.date_of_birth || '',
           Validators.required,
         ],
-        password: [data?.funcionario.password || '', passwordValidators],
-        confirmPassword: [data?.funcionario.password || '', passwordValidators],
+        password: [
+          '',
+          [
+            ...passwordValidators,
+            Validators.pattern(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_]).{6,}$/),
+          ],
+        ],
+        confirmPassword: ['', passwordValidators],
         profile: [
           {
             value: this.data?.funcionario.profile || ProfileEnum.EMPLOYEE,
@@ -54,9 +60,16 @@ export class ModalAdicionarEditarFuncionarioComponent {
   }
 
   senhasIguais(form: FormGroup) {
-    const senha = form.get('password')?.value;
-    const confirmarSenha = form.get('confirmPassword')?.value;
-    return senha === confirmarSenha ? null : { senhaInvalida: true };
+    const senha = form.get('password');
+    const confirmarSenha = form.get('confirmPassword');
+
+    if (!senha || !confirmarSenha) {
+      return null;
+    }
+
+    return senha.value === confirmarSenha.value
+      ? null
+      : confirmarSenha.setErrors({ senhaInvalida: true });
   }
 
   salvar() {
