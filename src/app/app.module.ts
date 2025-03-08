@@ -15,6 +15,7 @@ import { FuncionariosModule } from './pages/funcionarios/funcionarios.module';
 import { ModalAdicionarEditarFuncionarioModule } from './shared/components/modal-adicionar-editar-funcionario/modal-adicionar-editar-funcionario.module';
 import { ModalAlterarSenhaModule } from './shared/components/modal-alterar-senha/modal-alterar-senha.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ModalConfirmarModule } from './shared/components/modal-confirmar/modal-confirmar.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,6 +32,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     // Components
     ModalAdicionarEditarFuncionarioModule,
     ModalAlterarSenhaModule,
+    ModalConfirmarModule,
 
     // Modules
     MatCardModule,

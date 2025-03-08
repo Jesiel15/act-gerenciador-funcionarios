@@ -74,7 +74,7 @@
         <button
           mat-icon-button
           color="warn"
-          (click)="removerFuncionario(funcionario.id)"
+          (click)="abrirModalConfirmarExclusao(funcionario.id)"
           [disabled]="funcionario.profile === 'MANAGER'"
         >
           <mat-icon>delete</mat-icon>

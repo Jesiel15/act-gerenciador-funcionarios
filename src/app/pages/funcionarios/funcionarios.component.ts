@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalAdicionarEditarFuncionarioComponent } from 'src/app/shared/components/modal-adicionar-editar-funcionario/modal-adicionar-editar-funcionario.component';
 import { ModalAlterarSenhaComponent } from 'src/app/shared/components/modal-alterar-senha/modal-alterar-senha.component';
 import { tap } from 'rxjs';
+import { ModalConfirmarComponent } from 'src/app/shared/components/modal-confirmar/modal-confirmar.component';
 
 @Component({
   selector: 'app-funcionarios',
@@ -151,6 +152,16 @@ export class FuncionariosComponent implements OnInit {
       if (result) {
         this.funcionarios.push(result);
         this.salvarFuncionario(result);
+      }
+    });
+  }
+
+  abrirModalConfirmarExclusao(id: string): void {
+    const dialogRef = this.dialog.open(ModalConfirmarComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.removerFuncionario(id);
       }
     });
   }
