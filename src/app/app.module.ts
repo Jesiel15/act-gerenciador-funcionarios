@@ -14,6 +14,7 @@ import { TokenService } from './shared/utils/token.service';
 import { FuncionariosModule } from './pages/funcionarios/funcionarios.module';
 import { ModalAdicionarEditarFuncionarioModule } from './shared/components/modal-adicionar-editar-funcionario/modal-adicionar-editar-funcionario.module';
 import { ModalAlterarSenhaModule } from './shared/components/modal-alterar-senha/modal-alterar-senha.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,6 +38,7 @@ import { ModalAlterarSenhaModule } from './shared/components/modal-alterar-senha
     MatSelectModule,
     MatInputModule,
     MatFormFieldModule,
+    MatProgressSpinnerModule,
   ],
   providers: [
     {

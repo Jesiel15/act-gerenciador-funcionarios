@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [FuncionariosComponent],
@@ -24,6 +25,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSelectModule,
     MatIconModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
   ],
 })
 export class FuncionariosModule {}
