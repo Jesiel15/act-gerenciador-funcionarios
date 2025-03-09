@@ -46,7 +46,7 @@ export class ModalAdicionarEditarFuncionarioComponent {
         manager_name: [data?.funcionario.manager_name || ''],
         date_of_birth: [
           data?.funcionario.date_of_birth || '',
-          Validators.required,
+          [Validators.required, DocumentValidators.validateAdult],
         ],
         password: [
           '',

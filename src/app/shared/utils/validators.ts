@@ -31,4 +31,20 @@ export class DocumentValidators {
     }
     return null;
   }
+
+  static validateAdult(control: AbstractControl): ValidationErrors | null {
+    const birthDate = control.value;
+
+    if (!birthDate) return null;
+    const today = new Date();
+    const birth = new Date(birthDate);
+    const age = today.getFullYear() - birth.getFullYear();
+    const monthDifference = today.getMonth() - birth.getMonth();
+
+    if (age < 18 || (age === 18 && monthDifference < 0)) {
+      return { underage: true };
+    }
+
+    return null;
+  }
 }

@@ -17,6 +17,9 @@ import { ModalAlterarSenhaModule } from './shared/components/modal-alterar-senha
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ModalConfirmarModule } from './shared/components/modal-confirmar/modal-confirmar.module';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { MatNativeDateModule } from '@angular/material/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +30,7 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     HttpClientModule,
     NgxMaskDirective,
     NgxMaskPipe,
+    ReactiveFormsModule,
 
     // Pages
     LoginModule,
@@ -44,6 +48,8 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     MatInputModule,
     MatFormFieldModule,
     MatProgressSpinnerModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
   ],
   providers: [
     {

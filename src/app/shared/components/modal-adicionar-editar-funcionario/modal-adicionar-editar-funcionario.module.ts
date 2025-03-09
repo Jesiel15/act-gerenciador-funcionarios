@@ -9,7 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
-
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 @NgModule({
   declarations: [ModalAdicionarEditarFuncionarioComponent],
   imports: [
@@ -22,8 +23,10 @@ import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
     MatButtonModule,
     MatIconModule,
     MatSelectModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
     NgxMaskPipe,
-    NgxMaskDirective
+    NgxMaskDirective,
   ],
 })
 export class ModalAdicionarEditarFuncionarioModule {}

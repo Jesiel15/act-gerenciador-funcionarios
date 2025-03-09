@@ -57,6 +57,11 @@
         <mat-form-field>
           <mat-label>Data de Nascimento</mat-label>
           <input matInput type="date" formControlName="date_of_birth" />
+          <mat-error
+            *ngIf="funcionarioForm.get('date_of_birth')?.hasError('underage')"
+          >
+            A pessoa deve ser maior de idade!
+          </mat-error>
         </mat-form-field>
       </div>
 
