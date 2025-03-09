@@ -39,7 +39,10 @@ export class ModalAdicionarEditarFuncionarioComponent {
           data?.funcionario.document || '',
           [Validators.required, DocumentValidators.validateCPF],
         ],
-        phone: [data?.funcionario.phone || '', Validators.required],
+        phone: [
+          data?.funcionario.phone || '',
+          [Validators.required, DocumentValidators.validatePhone],
+        ],
         manager_name: [data?.funcionario.manager_name || ''],
         date_of_birth: [
           data?.funcionario.date_of_birth || '',

@@ -21,4 +21,14 @@ export class DocumentValidators {
 
     return null;
   }
+
+  static validatePhone(control: AbstractControl): ValidationErrors | null {
+    const phone = control.value?.replace(/\D/g, '');
+    const phoneRegex = /^[1-9]{2}[9]{1}[0-9]{8}$/;
+
+    if (!phone || !phoneRegex.test(phone)) {
+      return { invalidPhone: true };
+    }
+    return null;
+  }
 }
