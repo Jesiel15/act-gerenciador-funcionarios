@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FuncionariosComponent } from './funcionarios.component';
 import { FormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
@@ -29,6 +29,7 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     MatProgressSpinnerModule,
     NgxMaskPipe,
     NgxMaskDirective,
+    DatePipe,
   ],
 })
 export class FuncionariosModule {}
