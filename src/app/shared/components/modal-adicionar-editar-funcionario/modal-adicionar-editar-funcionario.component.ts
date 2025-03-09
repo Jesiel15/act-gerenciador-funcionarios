@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { User } from '../../models/user.model';
+import { FuncionarioModel } from '../../models/funcionario.model';
 import { ProfileEnum } from '../../enums/profile.enum';
 import { DocumentValidators } from '../../utils/validators';
 
@@ -14,7 +14,7 @@ export class ModalAdicionarEditarFuncionarioComponent {
   funcionarioForm: FormGroup;
   hidePassword = true;
   hideConfirmPassword = true;
-  funcionarios: User[] = [];
+  funcionarios: FuncionarioModel[] = [];
   managers: string[] = [];
   documentMask: string = '000.000.000-00';
 
@@ -22,7 +22,7 @@ export class ModalAdicionarEditarFuncionarioComponent {
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<ModalAdicionarEditarFuncionarioComponent>,
     @Inject(MAT_DIALOG_DATA)
-    public data: { funcionario: User; managers: string[] }
+    public data: { funcionario: FuncionarioModel; managers: string[] }
   ) {
     const passwordValidators = data?.funcionario ? [] : [Validators.required];
 

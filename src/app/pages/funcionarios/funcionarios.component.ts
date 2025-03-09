@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/shared/services/user.service';
-import { User } from 'src/app/shared/models/user.model';
+import { FuncionarioService } from 'src/app/shared/services/funcionario.service';
+import { FuncionarioModel } from 'src/app/shared/models/funcionario.model';
 import { ProfileEnum } from 'src/app/shared/enums/profile.enum';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,7 +16,7 @@ import { ModalConfirmarComponent } from 'src/app/shared/components/modal-confirm
 })
 export class FuncionariosComponent implements OnInit {
   loading = false;
-  funcionarios: User[] = [];
+  funcionarios: FuncionarioModel[] = [];
   managers: string[] = [];
   displayedColumns: string[] = [
     'profile_img',
@@ -31,7 +31,7 @@ export class FuncionariosComponent implements OnInit {
   ];
 
   constructor(
-    private userService: UserService,
+    private funcionarioService: FuncionarioService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog
   ) {}
@@ -43,7 +43,7 @@ export class FuncionariosComponent implements OnInit {
   getFuncionarios(): void {
     this.loading = true;
 
-    this.userService.getUsers().subscribe(
+    this.funcionarioService.getFuncionarios().subscribe(
       (response) => {
         this.funcionarios = response.response.filter(
           (funcionario) => funcionario.profile !== ProfileEnum.MANAGER
@@ -77,7 +77,7 @@ export class FuncionariosComponent implements OnInit {
     });
   }
 
-  private validarFuncionario(funcionario: User): boolean {
+  private validarFuncionario(funcionario: FuncionarioModel): boolean {
     return !!(
       funcionario.name &&
       funcionario.email &&
@@ -86,7 +86,7 @@ export class FuncionariosComponent implements OnInit {
       funcionario.date_of_birth
     );
   }
-  salvarFuncionario(funcionario: User): void {
+  salvarFuncionario(funcionario: FuncionarioModel): void {
     this.loading = true;
 
     if (!this.validarFuncionario(funcionario)) {
@@ -98,8 +98,8 @@ export class FuncionariosComponent implements OnInit {
     }
 
     const acao = funcionario.id
-      ? this.userService.updateUser(funcionario)
-      : this.userService.createUser(funcionario);
+      ? this.funcionarioService.updateFuncionario(funcionario)
+      : this.funcionarioService.createFuncionario(funcionario);
 
     acao.subscribe(
       (response) => {
@@ -132,7 +132,7 @@ export class FuncionariosComponent implements OnInit {
   }
 
   private getFuncionariosFinalizado() {
-    return this.userService.getUsers().pipe(
+    return this.funcionarioService.getFuncionarios().pipe(
       tap((response) => {
         this.funcionarios = response.response.filter(
           (funcionario) => funcionario.profile !== ProfileEnum.MANAGER
@@ -142,7 +142,7 @@ export class FuncionariosComponent implements OnInit {
     );
   }
 
-  editarFuncionario(funcionario: User): void {
+  editarFuncionario(funcionario: FuncionarioModel): void {
     const dialogRef = this.dialog.open(
       ModalAdicionarEditarFuncionarioComponent,
       {
@@ -171,7 +171,7 @@ export class FuncionariosComponent implements OnInit {
 
   removerFuncionario(id: string): void {
     this.loading = true;
-    this.userService.deleteUser(id).subscribe(
+    this.funcionarioService.deleteFuncionario(id).subscribe(
       () => {
         this.funcionarios = this.funcionarios.filter((f) => f.id !== id);
         this.loading = false;
@@ -198,7 +198,7 @@ export class FuncionariosComponent implements OnInit {
   }
 
   salvarNovaSenhaFuncionario(id: string, novaSenha: string): void {
-    this.userService.changePassword(id, novaSenha).subscribe(
+    this.funcionarioService.changePassword(id, novaSenha).subscribe(
       (response) => {
         this.mostrarAlerta('Senha atualizada com sucesso!');
         this.getFuncionarios();

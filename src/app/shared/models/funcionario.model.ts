@@ -1,6 +1,6 @@
 import { ProfileEnum } from '../enums/profile.enum';
 
-export class User {
+export class FuncionarioModel {
   id!: string;
   name!: string;
   email!: string;
