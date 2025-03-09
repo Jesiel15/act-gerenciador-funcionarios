@@ -8,6 +8,7 @@ import { ModalAdicionarEditarFuncionarioComponent } from 'src/app/shared/compone
 import { ModalAlterarSenhaComponent } from 'src/app/shared/components/modal-alterar-senha/modal-alterar-senha.component';
 import { tap } from 'rxjs';
 import { ModalConfirmarComponent } from 'src/app/shared/components/modal-confirmar/modal-confirmar.component';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-funcionarios',
@@ -34,7 +35,8 @@ export class FuncionariosComponent implements OnInit {
   constructor(
     private funcionarioService: FuncionarioService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -102,7 +104,6 @@ export class FuncionariosComponent implements OnInit {
       this.loading = false;
       return;
     }
-
 
     const acao = funcionario.id
       ? this.funcionarioService.updateFuncionario(funcionario)
@@ -228,5 +229,9 @@ export class FuncionariosComponent implements OnInit {
       horizontalPosition: 'center',
       panelClass: ['snackbar-alert'],
     });
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 }

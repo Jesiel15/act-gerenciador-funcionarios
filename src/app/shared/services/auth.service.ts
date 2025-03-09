@@ -26,6 +26,7 @@ export class AuthService {
     private storageService: StorageService,
     private notificationService: NotificationService
   ) {}
+  
   login(loginRequest: LoginRequest): void {
     this.http
       .post<LoginResponse>(`${this.apiUrl}/login`, loginRequest)
