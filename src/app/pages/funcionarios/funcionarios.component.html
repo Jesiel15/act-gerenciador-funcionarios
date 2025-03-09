@@ -31,13 +31,19 @@
     </ng-container>
 
     <ng-container matColumnDef="document">
-      <th mat-header-cell *matHeaderCellDef>Nº Documento</th>
-      <td mat-cell *matCellDef="let funcionario">{{ funcionario.document }}</td>
+      <th mat-header-cell *matHeaderCellDef>Nº Documento CPF</th>
+      <td mat-cell *matCellDef="let funcionario">
+        {{
+          funcionario.document | mask : "000.000.000-00"
+        }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="phone">
       <th mat-header-cell *matHeaderCellDef>Telefone</th>
-      <td mat-cell *matCellDef="let funcionario">{{ funcionario.phone }}</td>
+      <td mat-cell *matCellDef="let funcionario">
+        {{ funcionario.phone | mask : "(00) 00000-0000" }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="manager">

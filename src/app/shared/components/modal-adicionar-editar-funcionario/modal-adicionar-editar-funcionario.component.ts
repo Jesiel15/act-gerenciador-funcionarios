@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { User } from '../../models/user.model';
 import { ProfileEnum } from '../../enums/profile.enum';
+import { DocumentValidators } from '../../utils/validators';
 
 @Component({
   selector: 'app-modal-adicionar-editar-funcionario',
@@ -15,6 +16,7 @@ export class ModalAdicionarEditarFuncionarioComponent {
   hideConfirmPassword = true;
   funcionarios: User[] = [];
   managers: string[] = [];
+  documentMask: string = '000.000.000-00';
 
   constructor(
     private fb: FormBuilder,
@@ -33,7 +35,10 @@ export class ModalAdicionarEditarFuncionarioComponent {
           data?.funcionario.email || '',
           [Validators.required, Validators.email],
         ],
-        document: [data?.funcionario.document || '', Validators.required],
+        document: [
+          data?.funcionario.document || '',
+          [Validators.required, DocumentValidators.validateCPF],
+        ],
         phone: [data?.funcionario.phone || '', Validators.required],
         manager_name: [data?.funcionario.manager_name || ''],
         date_of_birth: [
@@ -70,6 +75,23 @@ export class ModalAdicionarEditarFuncionarioComponent {
     return senha.value === confirmarSenha.value
       ? null
       : confirmarSenha.setErrors({ senhaInvalida: true });
+  }
+
+  updateMask(event: any): void {
+    const inputValue = event.target.value;
+
+    if (inputValue.length <= 11) {
+      this.documentMask = '000.000.000-00';
+    }
+  }
+
+  validateCPFOnBlur(): void {
+    const documentControl = this.funcionarioForm.get('document');
+    if (documentControl?.valid) {
+      return;
+    }
+
+    documentControl?.updateValueAndValidity();
   }
 
   salvar() {

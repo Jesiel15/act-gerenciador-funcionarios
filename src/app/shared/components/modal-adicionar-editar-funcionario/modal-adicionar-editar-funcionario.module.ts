@@ -8,6 +8,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 
 @NgModule({
   declarations: [ModalAdicionarEditarFuncionarioComponent],
@@ -21,6 +22,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatButtonModule,
     MatIconModule,
     MatSelectModule,
+    NgxMaskPipe,
+    NgxMaskDirective
   ],
 })
 export class ModalAdicionarEditarFuncionarioModule {}

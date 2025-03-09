@@ -16,6 +16,7 @@ import { ModalAdicionarEditarFuncionarioModule } from './shared/components/modal
 import { ModalAlterarSenhaModule } from './shared/components/modal-alterar-senha/modal-alterar-senha.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ModalConfirmarModule } from './shared/components/modal-confirmar/modal-confirmar.module';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +25,8 @@ import { ModalConfirmarModule } from './shared/components/modal-confirmar/modal-
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
 
     // Pages
     LoginModule,
@@ -48,6 +51,10 @@ import { ModalConfirmarModule } from './shared/components/modal-confirmar/modal-
       useClass: TokenService,
       multi: true,
     },
+    provideNgxMask({
+      validation: true,
+      dropSpecialCharacters: false,
+    }),
   ],
   bootstrap: [AppComponent],
 })

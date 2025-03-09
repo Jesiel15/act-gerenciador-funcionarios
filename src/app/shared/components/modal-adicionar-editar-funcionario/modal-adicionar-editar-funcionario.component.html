@@ -19,12 +19,21 @@
       <div class="input-align">
         <mat-form-field>
           <mat-label>Nº Documento</mat-label>
-          <input matInput formControlName="document" />
+          <input 
+          matInput 
+          formControlName="document" 
+          [mask]="documentMask" 
+          (input)="updateMask($event)" 
+          (blur)="validateCPFOnBlur()"
+        />
+        <mat-error *ngIf="funcionarioForm.get('document')?.hasError('invalidCPF')">
+          CPF inválido!
+        </mat-error>
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Telefone</mat-label>
-          <input matInput formControlName="phone" />
+          <input matInput formControlName="phone" mask="(00) 00000-0000" />
         </mat-form-field>
       </div>
 
