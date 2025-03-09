@@ -10,8 +10,41 @@
   flex-direction: row;
 }
 
+.input-align-phones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  width: 100%;
+}
+
+.input-phone-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: calc(50% - 8px);
+  position: relative;
+  align-items: center;
+  width: 48%;
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: -36px;
+  margin-right: -24px;
+}
+
+.input-add-remove {
+  display: flex;
+  flex-direction: row;
+}
+
 .input-align-full {
   display: flex;
+}
+
+.align-icon {
+  display: flex;
+  flex-direction: row;
 }
 
 mat-form-field {

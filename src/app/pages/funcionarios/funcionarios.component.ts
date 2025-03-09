@@ -95,7 +95,6 @@ export class FuncionariosComponent implements OnInit {
 
   salvarFuncionario(funcionario: FuncionarioModel): void {
     this.loading = true;
-
     if (!this.validarFuncionario(funcionario)) {
       this.mostrarAlerta(
         'Preencha todos os campos obrigatórios antes de salvar!'
@@ -103,6 +102,7 @@ export class FuncionariosComponent implements OnInit {
       this.loading = false;
       return;
     }
+
 
     const acao = funcionario.id
       ? this.funcionarioService.updateFuncionario(funcionario)

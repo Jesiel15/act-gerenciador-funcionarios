@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FuncionarioModel } from '../../models/funcionario.model';
 import { ProfileEnum } from '../../enums/profile.enum';
@@ -27,9 +27,15 @@ export class ModalAdicionarEditarFuncionarioComponent {
       managers: { name: string; profile: ProfileEnum }[];
     }
   ) {
+    console.log('funcionario ===', data.funcionario.phone);
     const passwordValidators = data?.funcionario ? [] : [Validators.required];
 
     this.managers = data.managers;
+
+    const phoneNumbers = data?.funcionario.phone
+      ? data.funcionario.phone.split(';')
+      : [''];
+
     this.funcionarioForm = this.fb.group(
       {
         id: [data?.funcionario.id || ''],
@@ -42,10 +48,16 @@ export class ModalAdicionarEditarFuncionarioComponent {
           data?.funcionario.document || '',
           [Validators.required, DocumentValidators.validateCPF],
         ],
-        phone: [
-          data?.funcionario.phone || '',
-          [Validators.required, DocumentValidators.validatePhone],
-        ],
+        phones: this.fb.array(
+          phoneNumbers.map((phone: string) =>
+            this.fb.group({
+              phone: [
+                phone,
+                [Validators.required, DocumentValidators.validatePhone],
+              ],
+            })
+          )
+        ),
         manager_name: [data?.funcionario.manager_name || ''],
         date_of_birth: [
           data?.funcionario.date_of_birth || '',
@@ -103,11 +115,45 @@ export class ModalAdicionarEditarFuncionarioComponent {
   salvar() {
     if (this.funcionarioForm.valid) {
       this.funcionarioForm.get('profile')?.enable();
-      this.dialogRef.close(this.funcionarioForm.value);
+      const formValue = this.funcionarioForm.value;
+
+      const formattedPhones = formValue.phones
+        .map((phone: any) => phone.phone.replace(/\D/g, ''))
+        .map((phone: string) => {
+          return `(${phone.substring(0, 2)}) ${phone.substring(
+            2,
+            7
+          )}-${phone.substring(7, 11)}`;
+        })
+        .join(';');
+
+      this.dialogRef.close({
+        ...formValue,
+        phone: formattedPhones,
+      });
     }
   }
 
   cancelar() {
     this.dialogRef.close();
+  }
+
+  addPhone(): void {
+    this.phones.push(
+      this.fb.group({
+        phone: ['', [Validators.required, DocumentValidators.validatePhone]],
+      })
+    );
+    this.funcionarioForm.markAllAsTouched();
+  }
+
+  removePhone(index: number): void {
+    if (this.phones.length > 1) {
+      this.phones.removeAt(index);
+    }
+  }
+
+  get phones(): FormArray {
+    return this.funcionarioForm.get('phones') as FormArray;
   }
 }
