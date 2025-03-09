@@ -16,6 +16,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./funcionarios.component.scss'],
 })
 export class FuncionariosComponent implements OnInit {
+  isAllowed = false;
   loading = false;
   funcionarios: FuncionarioModel[] = [];
   managers: { name: string; profile: ProfileEnum }[] = [];
@@ -32,6 +33,17 @@ export class FuncionariosComponent implements OnInit {
     'actions',
   ];
 
+  displayedColumnsEmployee: string[] = [
+    'profile_img',
+    'name',
+    'email',
+    'document',
+    'phone',
+    'manager',
+    'date_of_birth',
+    'profile',
+  ];
+
   constructor(
     private funcionarioService: FuncionarioService,
     private snackBar: MatSnackBar,
@@ -41,6 +53,9 @@ export class FuncionariosComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFuncionarios();
+    this.authService.permission$.subscribe((isAllowed) => {
+      this.isAllowed = isAllowed;
+    });
   }
 
   getFuncionarios(): void {

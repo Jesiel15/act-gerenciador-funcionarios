@@ -5,19 +5,22 @@ import { environment } from 'src/environments/environment';
 import { LoginResponse } from '../models/login-response.model';
 import { LoginRequest } from '../models/login-request.model';
 import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { BehaviorSubject, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { StorageEnum } from '../enums/storage.enum';
 import { StorageService } from '../utils/storage.service';
 import { RoutesEnum } from '../enums/routes.enum';
 import { NotificationService } from '../utils/notification.service';
 import { NotificationEnum } from '../enums/notification.enum';
+import { ProfileEnum } from '../enums/profile.enum';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private apiUrl = environment.apiUrl;
+  private permissionSubject = new BehaviorSubject(false);
+  permission$ = this.permissionSubject.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -26,7 +29,7 @@ export class AuthService {
     private storageService: StorageService,
     private notificationService: NotificationService
   ) {}
-  
+
   login(loginRequest: LoginRequest): void {
     this.http
       .post<LoginResponse>(`${this.apiUrl}/login`, loginRequest)
@@ -48,6 +51,7 @@ export class AuthService {
             StorageEnum.LOGGED,
             response.login.toString()
           );
+          this.verificarPermissao();
           this.router.navigate([RoutesEnum.FUNCIONARIOS]);
         } else {
           console.log(response.message);
@@ -63,5 +67,10 @@ export class AuthService {
           this.router.navigate(['/login']);
         }
       });
+  }
+
+  verificarPermissao(): void {
+    let profile = this.storageService.getStorage(StorageEnum.USER_PROFILE);
+    this.permissionSubject.next(profile === ProfileEnum.MANAGER);
   }
 }
