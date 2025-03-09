@@ -19,6 +19,7 @@ export class FuncionariosComponent implements OnInit {
   funcionarios: User[] = [];
   managers: string[] = [];
   displayedColumns: string[] = [
+    'profile_img',
     'name',
     'email',
     'document',
