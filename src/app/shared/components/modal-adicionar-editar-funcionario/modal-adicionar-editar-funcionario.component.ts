@@ -15,14 +15,17 @@ export class ModalAdicionarEditarFuncionarioComponent {
   hidePassword = true;
   hideConfirmPassword = true;
   funcionarios: FuncionarioModel[] = [];
-  managers: string[] = [];
+  managers: { name: string; profile: ProfileEnum }[] = [];
   documentMask: string = '000.000.000-00';
 
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<ModalAdicionarEditarFuncionarioComponent>,
     @Inject(MAT_DIALOG_DATA)
-    public data: { funcionario: FuncionarioModel; managers: string[] }
+    public data: {
+      funcionario: FuncionarioModel;
+      managers: { name: string; profile: ProfileEnum }[];
+    }
   ) {
     const passwordValidators = data?.funcionario ? [] : [Validators.required];
 

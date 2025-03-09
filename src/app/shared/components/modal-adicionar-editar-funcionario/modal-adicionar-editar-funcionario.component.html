@@ -48,8 +48,9 @@
         <mat-form-field>
           <mat-label>Gestor</mat-label>
           <mat-select formControlName="manager_name">
-            <mat-option *ngFor="let manager of managers" [value]="manager">
-              {{ manager }}
+            <mat-option *ngFor="let manager of managers" [value]="manager.name">
+              {{ manager.name
+              }}{{ manager.profile === "MANAGER" ? " (Gerente)" : "" }}
             </mat-option>
           </mat-select>
         </mat-form-field>

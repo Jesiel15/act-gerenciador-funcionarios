@@ -17,7 +17,8 @@ import { ModalConfirmarComponent } from 'src/app/shared/components/modal-confirm
 export class FuncionariosComponent implements OnInit {
   loading = false;
   funcionarios: FuncionarioModel[] = [];
-  managers: string[] = [];
+  managers: { name: string; profile: ProfileEnum }[] = [];
+
   displayedColumns: string[] = [
     'profile_img',
     'name',
@@ -48,9 +49,14 @@ export class FuncionariosComponent implements OnInit {
         this.funcionarios = response.response.filter(
           (funcionario) => funcionario.profile !== ProfileEnum.MANAGER
         );
+
         this.managers = response.response
-          .filter((manager) => manager.profile === ProfileEnum.MANAGER)
-          .map((manager) => manager.name);
+          .filter((manager) => manager.profile)
+          .map((manager) => ({
+            name: manager.name,
+            profile: manager.profile,
+          }));
+
         this.loading = false;
       },
       (error) => {
@@ -86,6 +92,7 @@ export class FuncionariosComponent implements OnInit {
       funcionario.date_of_birth
     );
   }
+
   salvarFuncionario(funcionario: FuncionarioModel): void {
     this.loading = true;
 
@@ -137,7 +144,12 @@ export class FuncionariosComponent implements OnInit {
         this.funcionarios = response.response.filter(
           (funcionario) => funcionario.profile !== ProfileEnum.MANAGER
         );
-        this.managers = this.funcionarios.map((manager) => manager.name);
+        this.managers = response.response
+          .filter((manager) => manager.profile)
+          .map((manager) => ({
+            name: manager.name,
+            profile: manager.profile,
+          }));
       })
     );
   }
