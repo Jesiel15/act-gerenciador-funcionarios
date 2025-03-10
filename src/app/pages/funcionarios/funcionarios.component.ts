@@ -96,7 +96,6 @@ export class FuncionariosComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.funcionarios.push(result);
         this.salvarFuncionario(result);
       }
     });
@@ -114,10 +113,31 @@ export class FuncionariosComponent implements OnInit {
 
   salvarFuncionario(funcionario: FuncionarioModel): void {
     this.loading = true;
+
     if (!this.validarFuncionario(funcionario)) {
       this.mostrarAlerta(
         'Preencha todos os campos obrigatórios antes de salvar!'
       );
+      this.loading = false;
+      return;
+    }
+
+    const emailExistente = this.funcionarios.some(
+      (f) => f.email === funcionario.email && f.id !== funcionario.id
+    );
+
+    const cpfExistente = this.funcionarios.some(
+      (f) => f.document === funcionario.document && f.id !== funcionario.id
+    );
+
+    if (cpfExistente) {
+      this.mostrarAlerta('Este CPF já está em uso por outro funcionário.');
+      this.loading = false;
+      return;
+    }
+
+    if (emailExistente) {
+      this.mostrarAlerta('Este e-mail já está em uso por outro funcionário.');
       this.loading = false;
       return;
     }
@@ -130,21 +150,25 @@ export class FuncionariosComponent implements OnInit {
       (response) => {
         if (!funcionario.id && response.response.id) {
           funcionario.id = response.response.id;
+          this.funcionarios.push(funcionario);
         }
-
         this.getFuncionariosComLoadingDesativado(
           funcionario.id
             ? 'Funcionário atualizado com sucesso!'
             : 'Funcionário criado com sucesso!'
         );
       },
-      () => {
+      (error) => {
         this.loading = false;
-        this.mostrarAlerta(
-          funcionario.id
-            ? 'Erro ao atualizar funcionário!'
-            : 'Erro ao criar funcionário!'
-        );
+        if (error?.error?.message?.includes('documento')) {
+          this.mostrarAlerta('Este CPF já está em uso por outro funcionário.');
+        } else if (error?.error?.message?.includes('email')) {
+          this.mostrarAlerta(
+            'Este e-mail já está em uso por outro funcionário.'
+          );
+        } else {
+          this.mostrarAlerta('Erro ao criar ou atualizar funcionário!');
+        }
       }
     );
   }
