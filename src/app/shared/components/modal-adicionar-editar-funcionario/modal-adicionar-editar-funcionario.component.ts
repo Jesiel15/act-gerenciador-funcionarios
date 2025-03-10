@@ -17,16 +17,18 @@ export class ModalAdicionarEditarFuncionarioComponent {
   funcionarios: FuncionarioModel[] = [];
   managers: { name: string; profile: ProfileEnum }[] = [];
   documentMask: string = '000.000.000-00';
-
+  testDialogRef!: MatDialogRef<ModalAdicionarEditarFuncionarioComponent>
+  
   constructor(
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<ModalAdicionarEditarFuncionarioComponent>,
+    dialogRef: MatDialogRef<ModalAdicionarEditarFuncionarioComponent>,
     @Inject(MAT_DIALOG_DATA)
     public data: {
       funcionario: FuncionarioModel;
       managers: { name: string; profile: ProfileEnum; document: string }[];
     }
   ) {
+    this.testDialogRef = dialogRef
     const passwordValidators = data?.funcionario ? [] : [Validators.required];
 
     this.managers = data.managers.filter(
@@ -128,7 +130,7 @@ export class ModalAdicionarEditarFuncionarioComponent {
         })
         .join(';');
 
-      this.dialogRef.close({
+      this.testDialogRef.close({
         ...formValue,
         phone: formattedPhones,
       });
@@ -136,7 +138,7 @@ export class ModalAdicionarEditarFuncionarioComponent {
   }
 
   cancelar() {
-    this.dialogRef.close();
+    this.testDialogRef.close();
   }
 
   addPhone(): void {

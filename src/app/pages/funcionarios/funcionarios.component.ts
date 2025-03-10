@@ -101,7 +101,7 @@ export class FuncionariosComponent implements OnInit {
     });
   }
 
-  private validarFuncionario(funcionario: FuncionarioModel): boolean {
+  validarFuncionario(funcionario: FuncionarioModel): boolean {
     return !!(
       funcionario.name &&
       funcionario.email &&
@@ -110,7 +110,6 @@ export class FuncionariosComponent implements OnInit {
       funcionario.date_of_birth
     );
   }
-
   salvarFuncionario(funcionario: FuncionarioModel): void {
     this.loading = true;
 
@@ -173,14 +172,14 @@ export class FuncionariosComponent implements OnInit {
     );
   }
 
-  private getFuncionariosComLoadingDesativado(mensagem: string): void {
+  getFuncionariosComLoadingDesativado(mensagem: string): void {
     this.getFuncionariosFinalizado().subscribe(() => {
       this.loading = false;
       this.mostrarAlerta(mensagem);
     });
   }
 
-  private getFuncionariosFinalizado() {
+  getFuncionariosFinalizado() {
     return this.funcionarioService.getFuncionarios().pipe(
       tap((response) => {
         this.funcionarios = response.response.filter(
