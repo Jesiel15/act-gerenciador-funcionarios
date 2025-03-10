@@ -24,13 +24,14 @@ export class ModalAdicionarEditarFuncionarioComponent {
     @Inject(MAT_DIALOG_DATA)
     public data: {
       funcionario: FuncionarioModel;
-      managers: { name: string; profile: ProfileEnum }[];
+      managers: { name: string; profile: ProfileEnum; document: string }[];
     }
   ) {
-    console.log('funcionario ===', data.funcionario.phone);
     const passwordValidators = data?.funcionario ? [] : [Validators.required];
 
-    this.managers = data.managers;
+    this.managers = data.managers.filter(
+      (manager) => manager.document !== data.funcionario?.document
+    );
 
     const phoneNumbers = data?.funcionario.phone
       ? data.funcionario.phone.split(';')

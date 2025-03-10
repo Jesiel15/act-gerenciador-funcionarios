@@ -72,6 +72,7 @@ export class FuncionariosComponent implements OnInit {
           .map((manager) => ({
             name: manager.name,
             profile: manager.profile,
+            document: manager.document
           }));
 
         this.loading = false;
@@ -165,6 +166,7 @@ export class FuncionariosComponent implements OnInit {
           .map((manager) => ({
             name: manager.name,
             profile: manager.profile,
+            document: manager.document
           }));
       })
     );
