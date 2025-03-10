@@ -51,7 +51,6 @@ export class AuthService {
             StorageEnum.LOGGED,
             response.login.toString()
           );
-          this.verificarPermissao();
           this.router.navigate([RoutesEnum.FUNCIONARIOS]);
         } else {
           console.log(response.message);

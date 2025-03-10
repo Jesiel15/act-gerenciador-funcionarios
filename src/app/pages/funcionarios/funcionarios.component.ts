@@ -53,6 +53,7 @@ export class FuncionariosComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFuncionarios();
+    this.authService.verificarPermissao();
     this.authService.permission$.subscribe((isAllowed) => {
       this.isAllowed = isAllowed;
     });
@@ -72,7 +73,7 @@ export class FuncionariosComponent implements OnInit {
           .map((manager) => ({
             name: manager.name,
             profile: manager.profile,
-            document: manager.document
+            document: manager.document,
           }));
 
         this.loading = false;
@@ -166,7 +167,7 @@ export class FuncionariosComponent implements OnInit {
           .map((manager) => ({
             name: manager.name,
             profile: manager.profile,
-            document: manager.document
+            document: manager.document,
           }));
       })
     );
