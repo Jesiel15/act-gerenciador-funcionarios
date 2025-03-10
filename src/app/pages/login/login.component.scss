@@ -15,7 +15,6 @@ mat-card-content {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 40vh;
 }
 
 mat-form-field {
@@ -47,6 +46,7 @@ mat-form-field {
     transparent
   );
   margin: 10px auto;
+  margin-bottom: 5vh;
 }
 
 .button-login {
@@ -67,4 +67,43 @@ mat-form-field {
   display: flex;
   justify-content: center;
   width: 100%;
+}
+
+.error-msg {
+  color: #f44336;
+  background-color: #fdecea;
+  border: 1px solid #f5c6cb;
+  padding: 6px 16px;
+  margin-left: 16px;
+  margin-bottom: 12px;
+
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  animation: fadeIn 0.3s ease-in-out;
+
+  display: flex;
+  align-items: center;
+  width: 84%;
+}
+
+.error-msg-gap {
+  padding: 17px 16px;
+  margin-left: 16px;
+  margin-bottom: 12px;
+
+  display: flex;
+  align-items: center;
+  width: 86%;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

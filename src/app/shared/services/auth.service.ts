@@ -21,6 +21,8 @@ export class AuthService {
   private apiUrl = environment.apiUrl;
   private permissionSubject = new BehaviorSubject(false);
   permission$ = this.permissionSubject.asObservable();
+  private loginErrorSubject = new BehaviorSubject<string | null>(null);
+  loginError$ = this.loginErrorSubject.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -31,17 +33,21 @@ export class AuthService {
   ) {}
 
   login(loginRequest: LoginRequest): void {
+    this.loginErrorSubject.next(null);
     this.http
       .post<LoginResponse>(`${this.apiUrl}/login`, loginRequest)
       .pipe(
         catchError((data: HttpErrorResponse) => {
           console.log(data.error);
-          this.notificationService.show(data.error, NotificationEnum.ERROR);
+          const errorMsg = data?.error?.message || 'Erro ao realizar login';
+          this.loginErrorSubject.next(errorMsg);
+          this.notificationService.show(errorMsg, NotificationEnum.ERROR);
           return throwError(() => data);
         })
       )
       .subscribe((response: LoginResponse) => {
         if (response?.login) {
+          this.loginErrorSubject.next(null);
           this.tokenService.setAuthToken(response.token);
           this.storageService.setStorage(
             StorageEnum.USER_PROFILE,

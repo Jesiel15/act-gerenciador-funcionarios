@@ -11,6 +11,7 @@ import { StorageService } from 'src/app/shared/utils/storage.service';
 })
 export class LoginComponent implements OnInit {
   hide = true;
+  loginErrorMessage: string | null = null;
 
   formLogin = new UntypedFormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -24,6 +25,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.storageService.clearDataLogin();
+
+    this.authService.loginError$.subscribe((errorMsg) => {
+      this.loginErrorMessage = errorMsg;
+    });
   }
 
   getErrorMessage() {
