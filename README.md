@@ -97,6 +97,14 @@ Para implantar esta aplicação em um ambiente de produção, siga os passos aba
 
 Este projeto pode ser executado em containers utilizando Docker, com a aplicação Angular servida diretamente via `ng serve` ou `npm start` .
 
+### 🔸 Login Docker pelo terminal
+
+- Execute o comando abaixo para logar via terminal no Docker
+
+  ```bash
+  docker login
+  ```
+
 ### 🔸 Build da imagem Docker
 
 - Execute o comando abaixo para criar a imagem do container. Caso queira apenas rodar a imagem hospeda no **[Docker Hub](https://hub.docker.com)**, pule esse comando:
@@ -110,6 +118,7 @@ Este projeto pode ser executado em containers utilizando Docker, com a aplicaç�
 - Depois de construir a imagem, execute o container com o seguinte comando. Se não existir uma imagem local, vai trazer o **[Repositório](https://hub.docker.com/repository/docker/fariajesiel/act-gerenciador/general)** no Docker Hub:
 
   ```bash
+  docker pull fariajesiel/act-gerenciador
   docker run -dti -p 4200:4200 fariajesiel/act-gerenciador
   ```
 
