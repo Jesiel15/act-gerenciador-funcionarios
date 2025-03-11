@@ -107,7 +107,7 @@ Este projeto pode ser executado em containers utilizando Docker, com a aplicaç�
 
 ### 🔸 Executar o container
 
-- Depois de construir a imagem, execute o container com o seguinte comando. Se não existir uma imagem local, vai trazer do Docker Hub:
+- Depois de construir a imagem, execute o container com o seguinte comando. Se não existir uma imagem local, vai trazer o **[Repositório](https://hub.docker.com/repository/docker/fariajesiel/act-gerenciador/general)** no Docker Hub:
 
   ```bash
   docker run -dti -p 4200:4200 fariajesiel/act-gerenciador
