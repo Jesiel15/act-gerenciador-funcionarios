@@ -22,7 +22,7 @@ Esse projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli
   Github
   ```
 
-  > Os links dos downloads: **[Contruido com](#️-construído-com)**
+  > Os links dos downloads: **[Construído com](#️-construído-com)** 
 
 ## 🔧 Instalação
 
@@ -143,7 +143,8 @@ Ferramentas usadas na criação do projeto:
 
 - [Postman](https://www.postman.com/downloads) - Ferramenta para testar, documentar e automatizar APIs REST de forma prática e eficiente
 
-- [Docker](https://www.docker.com/get-started/) - Docker é uma tecnologia que permite criar e usar contêineres, que são pacotes de software que executam aplicações.
+- [Docker](https://www.docker.com/get-started/) - Docker é uma tecnologia que permite criar e usar contêineres, que são pacotes de software que executam aplicações. 
+
 
 ## 📚 Documentação da API
 
