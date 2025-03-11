@@ -22,7 +22,7 @@ Esse projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli
   Github
   ```
 
-  > Os links dos downloads: **[Construído com](#️-construído-com)** 
+  > Os links dos downloads: **[Construído com](#️-construído-com)**
 
 ## 🔧 Instalação
 
@@ -99,18 +99,18 @@ Este projeto pode ser executado em containers utilizando Docker, com a aplicaç�
 
 ### 🔸 Build da imagem Docker
 
-- Execute o comando abaixo para criar a imagem do container:
+- Execute o comando abaixo para criar a imagem do container. Caso queira apenas rodar a imagem hospeda no **[Docker Hub](https://hub.docker.com)**, pule esse comando:
 
   ```bash
-  docker build -t act-gerenciador .
+  docker build -t fariajesiel/act-gerenciador .
   ```
 
 ### 🔸 Executar o container
 
-- Depois de construir a imagem, execute o container com o seguinte comando:
+- Depois de construir a imagem, execute o container com o seguinte comando. Se não existir uma imagem local, vai trazer do Docker Hub:
 
   ```bash
-  docker run -p 4200:4200 act-gerenciador
+  docker run -dti -p 4200:4200 fariajesiel/act-gerenciador
   ```
 
   > A aplicação estará disponível em: **http://localhost:4200**
@@ -143,8 +143,7 @@ Ferramentas usadas na criação do projeto:
 
 - [Postman](https://www.postman.com/downloads) - Ferramenta para testar, documentar e automatizar APIs REST de forma prática e eficiente
 
-- [Docker](https://www.docker.com/get-started/) - Docker é uma tecnologia que permite criar e usar contêineres, que são pacotes de software que executam aplicações. 
-
+- [Docker](https://www.docker.com/get-started/) - Docker é uma tecnologia que permite criar e usar contêineres, que são pacotes de software que executam aplicações.
 
 ## 📚 Documentação da API
 
