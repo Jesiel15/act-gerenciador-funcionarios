@@ -1,0 +1,78 @@
+<h2 mat-dialog-title>Alterar Senha</h2>
+<mat-dialog-content>
+  <div mat-dialog-content fxLayout="row wrap">
+    <form [formGroup]="form">
+      <div class="full-width" fxFlex="100%">
+        <mat-form-field>
+          <mat-label>Nova Senha</mat-label>
+          <input
+            matInput
+            [type]="hidePassword ? 'password' : 'text'"
+            formControlName="novaSenha"
+            required
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hidePassword = !hidePassword"
+            [attr.aria-label]="'Esconder senha'"
+            [attr.aria-pressed]="hidePassword"
+          >
+            <mat-icon>{{
+              hidePassword ? "visibility_off" : "visibility"
+            }}</mat-icon>
+          </button>
+          <mat-error *ngIf="form.controls['novaSenha'].hasError('required')">
+            A senha é obrigatória.
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="full-width" fxFlex="100%">
+        <mat-form-field>
+          <mat-label>Confirmar Senha</mat-label>
+          <input
+            matInput
+            [type]="hideConfirmPassword ? 'password' : 'text'"
+            formControlName="confirmarSenha"
+            required
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hideConfirmPassword = !hideConfirmPassword"
+            [attr.aria-label]="'Esconder confirmação de senha'"
+            [attr.aria-pressed]="hideConfirmPassword"
+          >
+            <mat-icon>{{
+              hideConfirmPassword ? "visibility_off" : "visibility"
+            }}</mat-icon>
+          </button>
+          <mat-error
+            *ngIf="form.controls['confirmarSenha'].hasError('required')"
+          >
+            A confirmação de senha é obrigatória.
+          </mat-error>
+          <mat-error
+            *ngIf="form.controls['confirmarSenha'].hasError('senhaInvalida')"
+          >
+            As senhas não coincidem.
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button color="secondary" (click)="onNoClick()">
+    Cancelar
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="!form.valid"
+    (click)="salvarSenha()"
+  >
+    Salvar
+  </button>
+</mat-dialog-actions>

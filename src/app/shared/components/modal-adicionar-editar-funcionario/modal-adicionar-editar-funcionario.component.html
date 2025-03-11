@@ -1,0 +1,177 @@
+<h2 mat-dialog-title>
+  {{ data.funcionario ? "Editar" : "Adicionar" }} Funcionário
+</h2>
+<div mat-dialog-content fxLayout="row wrap" fxLayoutGap="16px">
+  <form [formGroup]="funcionarioForm">
+    <div class="full-width">
+      <div class="input-align-full">
+        <mat-form-field>
+          <mat-label>Nome</mat-label>
+          <input matInput formControlName="name" />
+        </mat-form-field>
+      </div>
+      <div class="input-align-full">
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" />
+        </mat-form-field>
+      </div>
+      <div class="input-align">
+        <mat-form-field>
+          <mat-label>Nº Documento CPF</mat-label>
+          <input
+            matInput
+            formControlName="document"
+            [mask]="documentMask"
+            (input)="updateMask($event)"
+            (blur)="validateCPFOnBlur()"
+          />
+          <mat-error
+            *ngIf="funcionarioForm.get('document')?.hasError('invalidCPF')"
+          >
+            CPF inválido!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Data de Nascimento</mat-label>
+          <input matInput type="date" formControlName="date_of_birth" />
+          <mat-error
+            *ngIf="funcionarioForm.get('date_of_birth')?.hasError('underage')"
+          >
+            A pessoa deve ser maior de idade!
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="input-align">
+        <mat-form-field>
+          <mat-label>Gestor</mat-label>
+          <mat-select formControlName="manager_name">
+            <mat-option *ngFor="let manager of managers" [value]="manager.name">
+              {{ manager.name
+              }}{{ manager.profile === "MANAGER" ? " (Gerente)" : "" }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Perfil</mat-label>
+          <input matInput formControlName="profile" />
+        </mat-form-field>
+      </div>
+
+      <div class="input-align-phones" formArrayName="phones">
+        <div
+          *ngFor="let phoneCtrl of phones.controls; let i = index"
+          [formGroupName]="i"
+          class="input-phone-wrapper"
+        >
+          <mat-form-field appearance="fill">
+            <mat-label>Telefone {{ i + 1 }}</mat-label>
+            <input
+              matInput
+              [formControlName]="'phone'"
+              mask="(00) 00000-0000"
+            />
+            <mat-error *ngIf="phoneCtrl.get('phone')?.hasError('invalidPhone')">
+              Número de telefone inválido!
+            </mat-error>
+          </mat-form-field>
+          <div class="icon-wrapper">
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="removePhone(i)"
+              *ngIf="phones.length > 1"
+            >
+              <mat-icon>remove_circle</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="addPhone()"
+              *ngIf="i === phones.length - 1"
+            >
+              <mat-icon>add_circle</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-align">
+        <mat-form-field *ngIf="!data.funcionario">
+          <mat-label>Senha</mat-label>
+          <input
+            matInput
+            [type]="hidePassword ? 'password' : 'text'"
+            formControlName="password"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hidePassword = !hidePassword"
+            [attr.aria-label]="'Esconder password'"
+            [attr.aria-pressed]="hidePassword"
+          >
+            <mat-icon>{{
+              hidePassword ? "visibility_off" : "visibility"
+            }}</mat-icon>
+          </button>
+          <mat-error
+            *ngIf="funcionarioForm.get('password')?.hasError('required')"
+          >
+            A senha é obrigatória.
+          </mat-error>
+          <mat-error
+            *ngIf="funcionarioForm.get('password')?.hasError('pattern')"
+          >
+            A senha deve conter pelo menos 6 caracteres, incluindo letras,
+            números e símbolos.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="!data.funcionario">
+          <mat-label>Confirmar senha</mat-label>
+          <input
+            matInput
+            [type]="hideConfirmPassword ? 'password' : 'text'"
+            formControlName="confirmPassword"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hideConfirmPassword = !hideConfirmPassword"
+            [attr.aria-label]="'Esconder password'"
+            [attr.aria-pressed]="hideConfirmPassword"
+          >
+            <mat-icon>{{
+              hideConfirmPassword ? "visibility_off" : "visibility"
+            }}</mat-icon>
+          </button>
+          <mat-error
+            *ngIf="
+              funcionarioForm.get('confirmPassword')?.hasError('senhaInvalida')
+            "
+          >
+            As senhas não coincidem.
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-raised-button color="secondary" (click)="cancelar()">
+    Cancelar
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="salvar()"
+    [disabled]="funcionarioForm.invalid"
+  >
+    Salvar
+  </button>
+</div>

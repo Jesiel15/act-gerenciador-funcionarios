@@ -1,0 +1,18 @@
+<div class="icone">
+  <mat-icon>warning</mat-icon>
+</div>
+<h2 mat-dialog-title>Confirmação de Exclusão</h2>
+<mat-dialog-content>
+  <p>
+    Tem certeza de que deseja excluir este funcionário? Esta ação não pode ser
+    desfeita.
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="secondary" (click)="cancelar()">
+    Cancelar
+  </button>
+  <button mat-raised-button color="warn" (click)="confirmar()">
+    Confirmar
+  </button>
+</mat-dialog-actions>

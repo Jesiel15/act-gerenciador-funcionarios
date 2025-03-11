@@ -1,11 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './pages/login/login.component';
+import { FuncionariosComponent } from './pages/funcionarios/funcionarios.component';
+import { CanActivateService } from './shared/utils/can-activate.service';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' }, // Redireciona para Login
-  { path: 'login', component: LoginComponent },
-  // { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] }
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
+    path: 'funcionarios',
+    component: FuncionariosComponent,
+    canActivate: [CanActivateService],
+  },
 ];
 
 @NgModule({
