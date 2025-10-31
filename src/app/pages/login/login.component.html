@@ -1,5 +1,9 @@
 <div class="content-card">
+  
   <mat-card>
+    <div class="spinner-container" *ngIf="loading">
+      <mat-spinner></mat-spinner>
+    </div>
     <mat-card-title class="card-title">LOGIN</mat-card-title>
     <div class="gradient-line"></div>
     <div *ngIf="loginErrorMessage" class="error-msg">

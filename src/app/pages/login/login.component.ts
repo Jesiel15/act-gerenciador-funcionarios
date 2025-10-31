@@ -12,10 +12,14 @@ import { StorageService } from 'src/app/shared/utils/storage.service';
 export class LoginComponent implements OnInit {
   hide = true;
   loginErrorMessage: string | null = null;
+  loading = false;
 
   formLogin = new UntypedFormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
+    email: new FormControl('functeste@email.com', [
+      Validators.required,
+      Validators.email,
+    ]),
+    password: new FormControl('*Test123', [Validators.required]),
   });
 
   constructor(
@@ -28,6 +32,9 @@ export class LoginComponent implements OnInit {
 
     this.authService.loginError$.subscribe((errorMsg) => {
       this.loginErrorMessage = errorMsg;
+      if (errorMsg) {
+        this.loading = false;
+      }
     });
   }
 
@@ -43,7 +50,11 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     console.log(this.formLogin.get('email')?.value);
+
     if (this.formLogin.valid) {
+      this.loading = true;
+      this.loginErrorMessage = null;
+
       const email: string = this.formLogin.get('email')?.value;
       const password: string = this.formLogin.get('password')?.value;
       const loginData = new LoginRequest(email, password);
